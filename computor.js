@@ -58,7 +58,6 @@ Ft_Sort = (tab) => {
     return a.exp - b.exp;
   });
   let eq = "";
-  let i = 0;
   neew.map((e) => {
     if (e.num >= 0) {
       if (!eq) {
@@ -79,6 +78,56 @@ Ft_Sort = (tab) => {
     "\x1b[32m%s\x1b[0m",
     `Polynomial degree: ${neew[neew.length - 1].exp}`
   );
+  return (neew)
 };
 
-Ft_Sort(table);
+let reduced = Ft_Sort(table);
+let degree = reduced[reduced.length - 1].exp;
+/* console.log(reduced)
+console.log(`degree: ${degree}`) */
+
+Ft_Deg0 = (tab) => {
+    let i = 0
+    let num = 0
+    while (i < tab.length)
+    {
+        num = num + tab[i].num;
+        i++;
+    }
+    if (num == 0)
+    {
+        console.log("\x1b[31m%s\x1b[0m", `${num} == 0`)
+        console.log("\x1b[31m%s\x1b[0m", `All solutions are possible.`)
+    }
+    else 
+    {
+        console.log("\x1b[31m%s\x1b[0m", `${num} != 0`)
+        console.log("\x1b[31m%s\x1b[0m", `There is no solution.`)
+    }
+}
+Ft_Deg1 = () => {
+    console.log(`deg 1`)
+}
+Ft_Deg2 = () => {
+    console.log(`deg 2`)
+}
+Ft_DegMore = () => {
+    console.log(`The polynomial degree is stricly greater than 2, I can't solve.`)
+}
+
+if (degree == 0)
+{
+    Ft_Deg0(reduced)
+}
+else if (degree == 1)
+{
+    Ft_Deg1(reduced)
+}
+else if (degree == 2)
+{
+    Ft_Deg2(reduced)
+}
+else
+{
+    Ft_DegMore(reduced)
+}
