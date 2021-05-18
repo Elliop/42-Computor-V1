@@ -15,6 +15,8 @@ Ft_Signe = (tab, signe) => {
     while (i < tab2.length)
     {
         let tab3 = tab2[i].split("*X^")
+        if (!tab3[0]) { tab3[0] = 1 }
+        if (!tab3[1]) { tab3[1] = '0' }
         obj = [...obj, {num: tab3[0], exp: tab3[1]}]
         obj[i].num = (parseFloat(obj[i].num) * signe)
         i++;
@@ -51,8 +53,30 @@ Ft_Sort = (tab) => {
     let neew = tab.sort(function (a, b){
         return a.exp - b.exp;
     })
-    console.log(neew)
+    let eq = ''
+    let i = 0
+    neew.map(e => {
+        if (e.num >= 0) {
+            if (!eq) {
+                eq = `${e.num} * X^${e.exp} `
+            }
+            else {
+                eq = `${eq} + ${e.num} * X^${e.exp} `
+            }
+            
+        } else {
+            if (!eq) {
+                eq = `${e.num} * X^${e.exp} `
+            }
+            else {
+                eq = `${eq} - ${e.num * -1} * X^${e.exp}`
+            }
+        }
+    })
+    console.log('\x1b[36m%s\x1b[0m',`Reduced form: ${eq} = 0`)
     console.log(`Polynomial degree: ${neew[neew.length - 1].exp}`)
+    
+
 /*     let i = 0;
     let str = "";
     while (i < neew.length)
