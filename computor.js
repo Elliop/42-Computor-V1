@@ -126,6 +126,8 @@ Ft_Deg2 = (tab) => {
     if (d > 0)
     {
         console.log (`Discriminant is positive, there are 2 real solutions:`)
+        console.log ("\x1b[34m%s\x1b[0m", `solution 1: X1 = (- B - Discriminant) / (2 * A)`)
+        console.log ("\x1b[34m%s\x1b[0m", `solution 2: X2 = (- B + Discriminant) / (2 * A)`)
         sol1 = (-1 * b - d)/(2 * a)
         sol2 = (-1 * b + d)/(2 * a)
         console.log("\x1b[31m%s\x1b[0m", sol1)
@@ -134,6 +136,7 @@ Ft_Deg2 = (tab) => {
     else if (d = 0)
     {
         console.log (`Discriminant = zero, there is one real solution:`)
+        console.log ("\x1b[34m%s\x1b[0m", `solution: X = (- B) / (2 * A)`)
         sol1 = (-1 * b)/(2 * a)
         console.log("\x1b[31m%s\x1b[0m", sol1)
     }
