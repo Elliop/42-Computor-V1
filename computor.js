@@ -83,8 +83,7 @@ Ft_Sort = (tab) => {
 
 let reduced = Ft_Sort(table);
 let degree = reduced[reduced.length - 1].exp;
-/* console.log(reduced)
-console.log(`degree: ${degree}`) */
+
 
 Ft_Deg0 = (tab) => {
     let i = 0
@@ -112,8 +111,36 @@ Ft_Deg1 = (tab) => {
     let num = (-1 * tab[0].num/tab[1].num)
     console.log("\x1b[31m%s\x1b[0m", `The solution is:\n${num}`)
 }
-Ft_Deg2 = () => {
-    console.log(`deg 2`)
+Ft_Deg2 = (tab) => {
+    let a = tab[2].num;
+    let b = tab[1].num;
+    let c = tab[1].num;
+    let d = 0;
+    let sol1, sol2;
+    console.log(`A * X^2 + B * X + C = 0`)
+    console.log("\x1b[35m%s\x1b[0m", `A = ${a} | B = ${b} | C = ${c}`)
+    d = (b * b) - (4 * a * c)
+// ADD FCT TO CALC Discriminant
+    d = d ** 0.5
+// ADD FCT TO CALC Discriminant
+    if (d > 0)
+    {
+        console.log (`Discriminant is positive, there are 2 real solutions:`)
+        sol1 = (-1 * b - d)/(2 * a)
+        sol2 = (-1 * b + d)/(2 * a)
+        console.log("\x1b[31m%s\x1b[0m", sol1)
+        console.log("\x1b[31m%s\x1b[0m", sol2)
+    }
+    else if (d = 0)
+    {
+        console.log (`Discriminant = zero, there is one real solution:`)
+        sol1 = (-1 * b)/(2 * a)
+        console.log("\x1b[31m%s\x1b[0m", sol1)
+    }
+    else
+    {
+        console.log (`Discriminant is negative, there are 2 complex solutions`)
+    }
 }
 Ft_DegMore = () => {
     console.log("\x1b[31m%s\x1b[0m", `The polynomial degree is stricly greater than 2, I can't solve.`)
