@@ -52,14 +52,15 @@ Ft_Sort = (tab) => {
         return a.exp - b.exp;
     })
     console.log(neew)
-    let i = 0;
+    console.log(`Polynomial degree: ${neew[neew.length - 1].exp}`)
+/*     let i = 0;
     let str = "";
     while (i < neew.length)
     {
         str = `${str} ${neew[i].num} * X^${neew[i].exp} +`;
         i++;
         console.log(str)
-    }
+    } */
 
 }
 
