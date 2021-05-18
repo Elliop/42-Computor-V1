@@ -105,14 +105,18 @@ Ft_Deg0 = (tab) => {
         console.log("\x1b[31m%s\x1b[0m", `There is no solution.`)
     }
 }
-Ft_Deg1 = () => {
-    console.log(`deg 1`)
+Ft_Deg1 = (tab) => {
+    console.log(`A * X + B = 0`)
+    console.log(`Rule: X = - B / A`)
+    console.log("\x1b[35m%s\x1b[0m", `X = - ${tab[0].num} / ${tab[1].num}`)
+    let num = (-1 * tab[0].num/tab[1].num)
+    console.log("\x1b[31m%s\x1b[0m", `The solution is:\n${num}`)
 }
 Ft_Deg2 = () => {
     console.log(`deg 2`)
 }
 Ft_DegMore = () => {
-    console.log(`The polynomial degree is stricly greater than 2, I can't solve.`)
+    console.log("\x1b[31m%s\x1b[0m", `The polynomial degree is stricly greater than 2, I can't solve.`)
 }
 
 if (degree == 0)
