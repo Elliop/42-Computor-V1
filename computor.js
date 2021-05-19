@@ -84,6 +84,31 @@ Ft_Sort = (tab) => {
 let reduced = Ft_Sort(table);
 let degree = reduced[reduced.length - 1].exp;
 
+Ft_Racine = (n) => {
+  let min = 1
+  let max = 1
+  let mid;
+  while (max * max < n)
+  {
+      max++
+  }
+  min = max - 1
+  mid = (max  + min)/2
+  while (mid * mid != n)
+  {
+      if(mid * mid  > n)
+      {
+          max = mid
+      } else {
+          min = mid
+      }
+      if (mid == (max  + min) /2){
+          break
+      }
+      mid = (max  + min) /2
+  }
+  return (mid)
+}
 
 Ft_Deg0 = (tab) => {
     let i = 0
@@ -114,17 +139,17 @@ Ft_Deg1 = (tab) => {
 Ft_Deg2 = (tab) => {
     let a = tab[2].num;
     let b = tab[1].num;
-    let c = tab[1].num;
+    let c = tab[0].num;
     let d = 0;
-    let sol1, sol2;
+    let sol1, sol2, bb, dd;
     console.log(`A * X^2 + B * X + C = 0`)
     console.log("\x1b[35m%s\x1b[0m", `A = ${a} | B = ${b} | C = ${c}`)
     d = (b * b) - (4 * a * c)
-// ADD FCT TO CALC Discriminant
-    d = d ** 0.5
-// ADD FCT TO CALC Discriminant
+    console.log(d)
+    let dneg = d
     if (d > 0)
     {
+        d = Ft_Racine(d)
         console.log (`Discriminant is positive, there are 2 real solutions:`)
         console.log ("\x1b[34m%s\x1b[0m", `solution 1: X1 = (- B - Discriminant) / (2 * A)`)
         console.log ("\x1b[34m%s\x1b[0m", `solution 2: X2 = (- B + Discriminant) / (2 * A)`)
@@ -135,6 +160,7 @@ Ft_Deg2 = (tab) => {
     }
     else if (d = 0)
     {
+        d = Ft_Racine(d)
         console.log (`Discriminant = zero, there is one real solution:`)
         console.log ("\x1b[34m%s\x1b[0m", `solution: X = (- B) / (2 * A)`)
         sol1 = (-1 * b)/(2 * a)
@@ -142,7 +168,17 @@ Ft_Deg2 = (tab) => {
     }
     else
     {
+        console.log(`toto: ${dneg}`)
+        d = dneg * -1
+        d = Ft_Racine(d)
         console.log (`Discriminant is negative, there are 2 complex solutions`)
+        console.log ("\x1b[34m%s\x1b[0m", `solution 1: X1 = (- B - i * (-Discriminant)) / (2 * A)`)
+        console.log ("\x1b[34m%s\x1b[0m", `solution 2: X2 = (- B + i * (-Discriminant)) / (2 * A)`)
+        bb = (-1 * b)/(2 * a)
+        console.log(d)
+        dd = (d)/(2 * a)
+        console.log("\x1b[31m%s\x1b[0m", `${bb} - ${dd} * i`)
+        console.log("\x1b[31m%s\x1b[0m", `${bb} + ${dd} * i`)
     }
 }
 Ft_DegMore = () => {
