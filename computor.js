@@ -3,13 +3,15 @@ Ft_Signe = (tab, signe) => {
   let i = 0;
   let obj = [];
   while (i < tab2.length) {
+    if (tab2[i].match(/\-?[0-9]\.?[0-9]?\*X\^\-?[0-9]\.?[0-9]?/g) == null)
+      {
+          tab2[i] = Ft_replace(tab2[i])
+      }
+      i++;
+    }
+    i = 0;
+    while (i < tab2.length) {
     let tab3 = tab2[i].split("*X^");
-    if (!tab3[0]) {
-      tab3[0] = 1;
-    }
-    if (!tab3[1]) {
-      tab3[1] = 0;
-    }
     obj = [...obj, { num: tab3[0], exp: tab3[1] }];
     if (obj[i].num == `X^${obj[i].exp}`) {
       obj[i].num = 1;
@@ -21,6 +23,23 @@ Ft_Signe = (tab, signe) => {
   return obj;
 };
 
+Ft_replace = (str) => {
+  if (str.match(/^\-?\d+(\.\d+)?$/) != null)
+    return (`${str}*X^0`);
+  else if (str == "X")
+    return `1*X^1`;
+  else if (str == "-X")
+    return `-1*X^1`;
+  else if (str.match(/^\-?\d+(\.\d+)?\*X$/) != null)
+    return `${str}^1`;
+  else if (str.match(/^X\^\-?\d+(\.\d+)?$/) != null)
+    return `1*${str}`;    
+  else if (str.match(/^\-X\^\-?\d+(\.\d+)?$/) != null)
+  {
+    return `-1*${str.slice(1, str.length)}`;    
+  }
+}
+
 Ft_Reduced = (tab) => {
   let i = 0;
   while (i < tab.length) {
@@ -29,6 +48,9 @@ Ft_Reduced = (tab) => {
       if (tab[j] && tab[i].exp == tab[j].exp) {
         tab[i].num = tab[j].num + tab[i].num;
         tab.splice(j, 1);
+        if (tab[i].num == 0)
+         tab.splice(i, 1);
+        j--;
       }
       j++;
     }
@@ -110,7 +132,7 @@ Ft_Deg1 = (tab) => {
   console.log(`Formula: X = - B / A`);
   console.log("\x1b[35m%s\x1b[0m", `X = - ${tab[0].num} / ${tab[1].num}`);
   let num = (-1 * tab[0].num) / tab[1].num;
-  console.log("\x1b[31m%s\x1b[0m", `The solution is:\n${num}`);
+  console.log("\x1b[31m%s\x1b[0m", `The solution is:`);
   console.log("\x1b[42m%s\x1b[0m", `${num}`);
 };
 
@@ -182,27 +204,45 @@ let equation = process.argv[2];
 if (process.argv.length == 3) {
   console.log("Equation: ", equation);
   let tab1 = equation.replaceAll(" ", "");
-  let tab2 = tab1.replaceAll("-", "+-");
-  let tab3 = tab2.split("=");
-  let left = tab3[0];
-  let right = tab3[1];
+  if (tab1.match(/[^0-9X\*\+\-\=\^\.]/g) != null)
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else if (tab1.match(/\=/g) == null)
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else if (tab1.match(/\=/g).length > 1)
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else if (tab1.match(/(\+\++)|(\-\-+)|(\*\*+)|(\^\^+)|(\.\.+)|(\=\=+)/g) != null)
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else if (tab1.match(/(\+[^0-9X])|(\-[^0-9X])|(\*[^0-9X])|(\^[^0-9])|(\=^[^0-9X\+\-])|(\.[^0-9])/g) != null)
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else
+  {
+    let tab2 = tab1.replaceAll("-", "+-");
+    let tab3 = tab2.split("=");
+    if (tab3[0] && tab3[1])
+    {
+      let left = tab3[0];
+      let right = tab3[1];
 
-  let sr1 = Ft_Signe(left, 1);
-  let sr2 = Ft_Signe(right, -1);
+      let sr1 = Ft_Signe(left, 1);
+      let sr2 = Ft_Signe(right, -1);
 
-  let table = sr1.concat(sr2);
-  table = Ft_Reduced(table);
+      let table = sr1.concat(sr2);
+      table = Ft_Reduced(table);
 
-  let reduced = Ft_Sort(table);
-  let degree = reduced[reduced.length - 1].exp;
-
-  if (degree == 0) {
-    Ft_Deg0(reduced);
-  } else if (degree == 1) {
-    Ft_Deg1(reduced);
-  } else if (degree == 2) {
-    Ft_Deg2(reduced);
-  } else {
-    Ft_DegMore();
+      let reduced = Ft_Sort(table);
+      let degree = reduced[reduced.length - 1].exp;
+      
+      if (degree == 0) {
+        Ft_Deg0(reduced);
+      } else if (degree == 1) {
+        Ft_Deg1(reduced);
+      } else if (degree == 2) {
+        Ft_Deg2(reduced);
+      } else {
+        Ft_DegMore();
+      }      
+    }
+    else
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
   }
 } else console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
