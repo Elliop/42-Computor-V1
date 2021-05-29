@@ -13,8 +13,8 @@ ComputorV1 is a program that solves degree 2 or less equations with rational num
 ```
 ### Features!
 
-  - It supports a human friendly mathematical synthax
-    - All the following formats are supported 
+- It supports a human friendly mathematical synthax
+- All the following formats are supported 
         ```sh
         node computor.js "5 * X^0 + 4 * X^1 - 1 * X^2 = 0"
         node computor.js "5 + 4 * X^1 - 1 * X^2 = 0"
@@ -37,12 +37,14 @@ solution 1: X1 = (- B - Δ) / (2 * A)
 solution 2: X2 = (- B + Δ) / (2 * A)
 X1 = -10/-2
 X2 = 2/-2
+
 5
 -1
 ```
 
 ```sh
 node computor.js "5 * X^0 + 4 * X^1 = 4 * X^0"
+
 Equation:  5 * X^0 + 4 * X^1 = 4 * X^0
 Reduced form: 1 * X^0 + 4 * X^1 = 0
 Polynomial degree: 1
@@ -50,11 +52,13 @@ A * X + B = 0
 Formula: X = - B / A
 X = - 1 / 4
 The solution is:
+
 -0.25
 ```
 
 ```sh
-node computor.js "2 * X = 4 * X - 2 * X"  
+node computor.js "2 * X = 4 * X - 2 * X"
+
 Equation:  2 * X = 4 * X - 2 * X
 Reduced form: 0 = 0
 All solutions are possible.
