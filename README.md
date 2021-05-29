@@ -4,7 +4,7 @@ ComputorV1 is a program that solves degree 2 or less equations with rational num
 ### Instalation
 
 ```sh
-    git clone https://github.com/ayoubyt/ComputorV1.git
+    git clone https://github.com/Elliop/42-Computor-V1.git
 ```
 ### usage
 
