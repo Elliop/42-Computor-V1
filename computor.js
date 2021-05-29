@@ -36,8 +36,15 @@ Ft_replace = (str) => {
 Ft_Reduced = (tab) => {
   let i = 0;
   while (i < tab.length) {
+    if (tab[i].num == 0) tab.splice(i, 1);
+    i++
+  }
+  i = 0;
+  while (i < tab.length) {
+    
     let j = i + 1;
     while (j <= tab.length) {
+      
       if (tab[j] && tab[i].exp == tab[j].exp) {
         tab[i].num = tab[j].num + tab[i].num;
         tab.splice(j, 1);
@@ -212,6 +219,17 @@ Ft_check1 = (tab) => {
   } else return;
 };
 
+Ft_checkX = (tab) => {
+  if (tab) {
+    let i = 0;
+    while (tab[i]) {
+      if (tab[i] != "X")
+        return "Syntax ERROR";
+      i++;
+    }
+  } else return;
+}
+
 Ft_AddLength = (reduced) => {
   let new_tab = [];
   if (reduced.length == 2) {
@@ -275,7 +293,10 @@ if (process.argv.length == 3) {
   console.log("Equation: ", equation);
   let tab1 = equation.replaceAll(" ", "");
   let l = tab1.match(/.(?=X)/g);
+  let X = tab1.match(/.(?=\^)/g);
   if (Ft_check1(l) == "Syntax ERROR")
+    console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+  else if (Ft_checkX(X) == "Syntax ERROR")
     console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
   else if (tab1.match(/[^0-9X\*\+\-\=\^\.]/g) != null)
     console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
@@ -289,10 +310,12 @@ if (process.argv.length == 3) {
     console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
   else if (
     tab1.match(
-      /(\+[^0-9X])|(\-[^0-9X])|(\*[^0-9X])|(\^[^0-9])|(\=[^0-9X\-])|(\.[^0-9])|(X[^\+\-\^])|([^\dX]$)/g
+      /(\+[^0-9X])|(\-[^0-9X])|(\*[^0-9X])|(\^[^0-9])|(\=[^0-9X\-])|(\.[^0-9])|(X[^\+\-\^\=])|([^\dX]$)/g
     ) != null
   )
     console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
+
+    
   else if (tab1.match(/(\^\d+(\.\d+))/g) != null)
     console.log("\x1b[31m%s\x1b[0m", "Syntax ERROR");
   else if (tab1.match(/(^\*)|(^\+)/g) != null)
